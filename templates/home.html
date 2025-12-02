@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load i18n %}
+{% block content %}
+<div class="body container-user">
+
+    <div class="slider-main">
+        <div id="slider" class="slider-pro">
+            <div class="slider-preload">
+                <img src="{% static 'images/slider-loading.gif' %}" alt=""/>
+            </div>
+
+            <div class="sp-slides">
+                
+{% for img in images %}
+    <div class="sp-slide">
+        <img class="sp-image scale"
+             src="{{ img.images.url }}"
+             data-src="{{ img.images.url }}"
+             data-retina="{{ img.images.url }}">
+    </div>
+{% endfor %}
+
+            </div>
+        </div>
+    </div>
+
+    <div role="main" class="main row">
+        <div class="fixed-block">
+            <a href="{% static 'murojaatlar/index.html' %}" class="feed-button"
+               style="background: url({% static 'images/human-feedback-uz.png' %});"> </a>
+        </div>
+        <!-- MAIN CONTENT -->
+        <div class="pull-left col-md-9">
+            <div class="news-main">
+                <div class="yangilik-block">
+                  `
+                    <h1>{% blocktrans %} So'nggi xabarlar va e'lonlar {% endblocktrans %}</h1>
+                </div>
+
+                    <div class="grid grid_news">
+                        {% for i in elon_va_tadbirlar %}
+                            <div class="grid_item news_item">
+                        <a href="{% url 'elon_va_tadbir_detail' pk=i.id %}" class="news">
+                            <div class="news__image"
+                                 style="background: url({{i.image.url}});background-size: cover;"></div>
+                            <div class="news__title">
+                                {{ i.title }}
+                            </div>
+                            <div class="news__date">
+                                <i>
+                                    <svg class="ico_svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <use xlink:href="{% static 'images/sprite_icons.svg#icon__time' %}"
+                                             xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+                                    </svg>
+                                </i>
+                                <span>{{ i.created_at }}</span>
+                            </div>
+                            <div class="news__text">{{ i.content|truncatewords:11 }}
+                            </div>
+                            <div class="news__arrow">
+                                <svg class="ico_svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <use xlink:href="{% static 'images/sprite_icons.svg#icon__arrow_right' %}"
+                                         xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+                                </svg>
+                            </div>
+                        </a>
+                    </div>
+                        {% endfor %}
+                     </div>
+
+            </div>
+        </div>
+        <div class="pull-left block-sidebar col-md-3">
+            <div id="activities_wrap">
+                <ul class="nav navbar-nav" id="main-menu">
+                    <li class="dropdown parent"><a href="#">{% blocktrans %} Qonunchilik palatasi qarorlari {% endblocktrans %}</a></li>
+                    <li class="dropdown parent"><a href="#">{% blocktrans %} Vazirlar mahkamasi qarorlari {% endblocktrans %}</a></li>
+                    <li class="dropdown parent"><a href="https://gov.uz/oz/iiv/pages/o-z-kuchini-yo-qotgan-me-yoriy-huquqiy-hujjatlar">{% blocktrans %} O'z kuchini yo'qotgan me'yoriy hujjatlar {% endblocktrans %}</a></li>
+                    <li class="dropdown parent"><a href="#">{% blocktrans %} Rasmiy ma'ruzalar {% endblocktrans %}</a></li>
+                    <li class="dropdown parent"><a href="#">{% blocktrans %} Analitik xisobot va taxlillar {% endblocktrans %}</a></li>
+                </ul>
+            </div>
+
+            <hr/>
+            <div class="data-banner">
+                <a class="calc-button" href="#"><i class="fa fa-files-o" aria-hidden="true"></i> <span>{% blocktrans %} Me'yoriy hujjatlar {% endblocktrans %}</span></a>
+                <a href="#"><i class="fa fa-clock-o" aria-hidden="true"></i> <span>{% blocktrans %}  Ish grafigi {% endblocktrans %}</span></a>
+                <a style="background: #24da72;" href="/boshqarma-haqida/ish-urin/"><i class="fa fa-user-plus" aria-hidden="true"></i> <span> {% blocktrans %} Bo'sh ish o'rinlari {% endblocktrans %}</span></a>
+                <a href="/murojaatlar/" class="mygov"><i class="fa fa-comments-o" aria-hidden="true"></i><span>{% blocktrans %} Shikoyatlar mavjudmi?{% endblocktrans %} <br/>{% blocktrans %} Onlayn tarzda yuboring {% endblocktrans %}</span></a>
+            </div>
+
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<div class="bloklar-main">
+    <div class="container-user">
+        <div class="info__content">
+            <div class="galery-foto">
+                <div class="galery-text">
+                    
+                    <h1>{% blocktrans %} Fotogalereya {% endblocktrans %}</h1>
+                    <a href="#">{% blocktrans %} Barcha rasmlar {% endblocktrans %}</a>
+                </div>
+                <div class="foto">
+                    <div class="row">
+                       {% for rasm in rasmlar %}
+<div class="col-md-6 foto-img">
+    <a href="{{ rasm.image.url }}" class="fancybox" rel="gallery">
+        <img src="{{ rasm.image.url }}" alt=""/>
+    </a>
+</div>
+{% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
